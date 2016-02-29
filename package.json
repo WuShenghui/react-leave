@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --host 192.168.88.104 --progress --profile --colors --hot",
+    "dev": "webpack-dev-server --progress --profile --colors --hot",
     "build": "webpack --progress --profile --colors",
     "test": "karma start"
   },
