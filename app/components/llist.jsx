@@ -5,15 +5,13 @@ export default class Llist extends React.Component {
     
 	constructor(props) {
 		super(props);
-		this.state = {"btnListShow" : true}
-		// 事件绑定
-		//this.handleSelect = this.handleSelect.bind(this);
+		this.state = { "btnListShow" : true };
 	}
     
 	componentWillReceiveProps(nextProps) {
 		// console.log(nextProps);
 		let reSelectflag = nextProps.reSelectflag;
-		this.setState({"btnListShow":reSelectflag});
+		this.setState({ "btnListShow": reSelectflag });
 	}
     
 	handleSelect = () => {
@@ -21,15 +19,15 @@ export default class Llist extends React.Component {
 		let detailBtnval = ReactDOM.findDOMNode(this.refs.name).innerText;
 		// 把获得的detailBtnval 通过props.sendAction往上传递
 		this.props.sendAction(detailBtnval);
-	}
+	};
 
 	render() {
-		if(this.state.btnListShow) {
+		if (this.state.btnListShow) {
 			return (
 				<div className="btn-block">
-					<button onClick={this.handleSelect} ref="name">{this.props.val}</button>
+					<button onClick={ this.handleSelect } ref="name">{ this.props.val }</button>
 				</div>
-			)
+			);
 		} else {
 			return null;
 		}		
