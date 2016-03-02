@@ -6,24 +6,28 @@ import Lform from './components/lform';
 import Llist from './components/llist';
 import Ldetail from './components/ldetail';
 
-class App extends React.Component{
+class App extends React.Component {
+    
 	constructor() {
 		super();
 		// 初始化detailVal为空
 		this.state = {"detailVal":"","selectFlag":""};
 		// 事件绑定
-		this.refreshDetailBtnVal = this.refreshDetailBtnVal.bind(this);
-		this.reSelectVal = this.reSelectVal.bind(this);
+		//this.refreshDetailBtnVal = this.refreshDetailBtnVal.bind(this);
+		//this.reSelectVal = this.reSelectVal.bind(this);
 	}
+    
 	// 通过选择按钮，改变detailVal的状态
-	refreshDetailBtnVal(val){
+	refreshDetailBtnVal = (val) => {
 		this.setState({"detailVal":val});
 		// 选择按钮时，讲状态设置为初似状态
 		this.setState({"selectFlag":""});
-	}
-	reSelectVal(val){
+	};
+    
+	reSelectVal = (val) => {
 		this.setState({"selectFlag":val});
-	}
+	};
+    
 	render() {
 		const labelArr = ["職員編號","雜誌/公司","部門","到職日期","職員姓名","職  位"];
 		const btnArr = ["有薪年假","病假","補假","無薪假","分娩假","婚假","恩恤假","其他"];
@@ -32,13 +36,13 @@ class App extends React.Component{
 			<div>
 				<div className="row">
 			 {
-		 		labelArr.map((labelItem) => <Lform name={labelItem}></Lform>)
+		 		labelArr.map((labelItem) => <Lform key={labelItem} name={labelItem}></Lform>)
 			 }
 			 </div>
 			 <div className="row">
 			 {
 			 	// 获得选中按钮的值，通过refreshDetailBtnVal方法改变状态
-			 	btnArr.map((btnItem) => <Llist val={btnItem} sendAction={this.refreshDetailBtnVal} reSelectflag={this.state.selectFlag}></Llist>)
+			 	btnArr.map((btnItem) => <Llist key={btnItem} val={btnItem} sendAction={this.refreshDetailBtnVal} reSelectflag={this.state.selectFlag}></Llist>)
 			 }
 			 </div>
 			 {
@@ -53,4 +57,4 @@ class App extends React.Component{
 
 // const app = document.createElement('div');
 // document.body.appendChild(app);
-ReactDOM.render(<App />, document.body);
+ReactDOM.render(<App />, document.getElementById('app'));
