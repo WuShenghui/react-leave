@@ -9,7 +9,7 @@ var TEM_PATH = path.resolve(ROOT_PATH, 'templates');
 
 module.exports= {
 	entry: {
-		app: path.resolve(APP_PATH, 'index.jsx')
+		app: path.resolve(APP_PATH, 'index.js')
 	},
 	output: {
 		path: BUILD_PATH,
@@ -41,7 +41,7 @@ module.exports= {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: '英皇集團假期申請表',
+			title: '假期申請表',
 			template: path.resolve(TEM_PATH,'index.html'),
 			filename: 'index.html',
 			inject: 'body'
