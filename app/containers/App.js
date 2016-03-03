@@ -18,6 +18,14 @@ export default class App extends Component {
             hiredate: '',
             name: '',
             position: ''
+        },
+        initialLeaveInfo: {
+            beginDate: '',
+            beginPeriod: '',
+            endDate: '',
+            endPeriod: '',
+            total: 0,
+            cause: ''
         }
     };
     
@@ -27,7 +35,8 @@ export default class App extends Component {
         this.state = {
             leaveType: this.props.leaveType,
             types: this.props.types,
-            requestor: this.props.initialRequestor
+            requestor: this.props.initialRequestor,
+            leaveInfo: this.props.initialLeaveInfo
         };
     }
     
@@ -49,16 +58,20 @@ export default class App extends Component {
         })
     };
     
+    addLeaveInfo = (info) => {
+        console.log(Object.assign({}, info, this.state.requestor));
+    };
+    
     render() {
         let leaveNode = this.state.leaveType.isSelected
-                            ? <LeaveInfo leaveType={ this.state.leaveType } reselect={ this.reselect } /> 
+                            ? <LeaveInfo leaveType={ this.state.leaveType } addLeaveInfo={ this.addLeaveInfo } reselect={ this.reselect } /> 
                             : <LeaveTypeList types={ this.state.types } selectedType={ this.selectedType } /> 
         
         return (
-            <div>
+            <form>
                 <RequestorInfo requestorInfo={ this.state.requestor } />
                 { leaveNode }            
-            </div>
+            </form>
         )
     }
 }
