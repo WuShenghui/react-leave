@@ -8,9 +8,11 @@ export default class LeaveTypeList extends Component {
     }
 
     render() {
-        let typeNodes = this.props.types.map((type) => {
+        const { types, selectedType } = this.props;
+        
+        let typeNodes = types.map((type) => {
             return (
-                <LeaveType key={ type } type = { type } />
+                <LeaveType key={ type } type={ type } selectedType={ selectedType.bind(null, type) } />
             )
         });
 

@@ -7,6 +7,10 @@ import LeaveInfo from '../components/LeaveInfo'
 export default class App extends Component {
     static defaultProps = {
         types: ["有薪年假", "病假", "補假", "無薪假", "分娩假", "婚假", "恩恤假", "其他"],
+        leaveType: {
+            type: '',
+            isSelected: false
+        },
         initialRequestor: {
             id: '',
             company: '',
@@ -21,24 +25,39 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-            isSelectedType: false,
+            leaveType: this.props.leaveType,
             types: this.props.types,
             requestor: this.props.initialRequestor
         };
     }
     
-    selectedType = () => {
+    selectedType = (type) => {
         this.setState({
-            isSelectedType: true
+            leaveType: {
+                type: type,
+                isSelected: true
+            }
+        })
+    };
+    
+    reselect = () => {
+        this.setState({
+            leaveType: {
+                type: '',
+                isSelected: false
+            }
         })
     };
     
     render() {
+        let leaveNode = this.state.leaveType.isSelected
+                            ? <LeaveInfo leaveType={ this.state.leaveType } reselect={ this.reselect } /> 
+                            : <LeaveTypeList types={ this.state.types } selectedType={ this.selectedType } /> 
+        
         return (
             <div>
                 <RequestorInfo requestorInfo={ this.state.requestor } />
-                <LeaveTypeList types={ this.state.types } selectedType={ this.selectedType } />
-                <LeaveInfo isSelectedType={ this.state.isSelectedType } />
+                { leaveNode }            
             </div>
         )
     }

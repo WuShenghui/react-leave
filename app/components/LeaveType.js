@@ -7,8 +7,8 @@ export default class LeaveType extends Component {
     }
     
     handleSelected = () => {
-        //const { selectedType } = this.props;
-        //this.props.selectedType();
+        const { type, selectedType } = this.props;
+        selectedType(type);
     };
 
     render() {
