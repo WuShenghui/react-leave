@@ -1,9 +1,9 @@
 {
-	// 添加两个presents，使用这两种presets处理js或者jsx文件, stage-0 使其支持arrow function语法
-	"presets": ["react", "es2015", "stage-0"],
-	"env": {
-		"development": {
-			"presets": ["react-hmre"]
-		}
-	}
+  "presets":  ["es2015", "react", "stage-0"],
+  "plugins":  ["transform-decorators-legacy", "transform-class-properties", "transform-object-rest-spread", "syntax-async-functions","transform-regenerator", "transform-runtime"],
+  "env": {
+    "development": {
+      "presets": ["react-hmre"]
+    }
+  }
 }
