@@ -59,7 +59,7 @@ export default class LeaveInfo extends Component {
     };
     
     handleSubmit = (e) => {
-        const { addLeaveInfo } = this.props
+        const { leaveInfo, addLeaveInfo } = this.props
         const { beginDate, beginPeriod, endDate, endPeriod, total, cause } = this.state
         e.preventDefault()
 
@@ -68,7 +68,7 @@ export default class LeaveInfo extends Component {
             return; 
         }
 
-        addLeaveInfo(Object.assign({}, this.state));
+        addLeaveInfo(Object.assign(leaveInfo, this.state));
     };
 
     render() {
@@ -78,7 +78,7 @@ export default class LeaveInfo extends Component {
                 {/* 重新選擇 */}
                 <div className="row detailStatus">
                     <span className="col-cus-9">
-                        <input type="button" value={ this.props.leaveType.type } />
+                        <input type="button" value={ this.props.leaveInfo.type } />
                     </span>
                     <a className="col-cus-3" href="#" onClick={ this.handleReselect } data-flag="true" sendFlagAction="">重新選擇</a>
                 </div>

@@ -1,77 +1,37 @@
 import React, { Component } from 'react'
 import render from 'react-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import actions from '../redux/actions'
 import RequestorInfo from '../components/RequestorInfo'
 import LeaveTypeList from '../components/LeaveTypeList'
 import LeaveInfo from '../components/LeaveInfo'
 
-export default class App extends Component {
-  static defaultProps = {
-    types: ["有薪年假", "病假", "補假", "無薪假", "分娩假", "婚假", "恩恤假", "其他"],
-    leaveType: {
-      type: '',
-      isSelected: false
-    },
-    initialRequestor: {
-      id: '',
-      company: '',
-      department: '',
-      hiredate: '',
-      name: '',
-      position: ''
-    },
-    initialLeaveInfo: {
-      beginDate: '',
-      beginPeriod: '',
-      endDate: '',
-      endPeriod: '',
-      total: 0,
-      cause: ''
-    }
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      leaveType: this.props.leaveType,
-      types: this.props.types,
-      requestor: this.props.initialRequestor,
-      leaveInfo: this.props.initialLeaveInfo
-    };
-  }
-
-  selectedType = (type) => {
-    this.setState({
-      leaveType: {
-        type: type,
-        isSelected: true
-      }
-    })
-  };
-
-  reselect = () => {
-    this.setState({
-      leaveType: {
-        type: '',
-        isSelected: false
-      }
-    })
-  };
-
-  addLeaveInfo = (info) => {
-    console.log(Object.assign({}, info, this.state.requestor));
-  };
+class App extends Component {
 
   render() {
-    let leaveNode = this.state.leaveType.isSelected
-      ? <LeaveInfo leaveType={ this.state.leaveType } addLeaveInfo= { this.addLeaveInfo } reselect= { this.reselect } /> 
-                            : <LeaveTypeList types={ this.state.types } selectedType = { this.selectedType } /> 
+
+    let leaveNode = this.props.leaveInfo.type
+      ? <LeaveInfo leaveInfo={ this.props.leaveInfo } addLeaveInfo= { this.props.actions.addLeaveInfo } reselect= { this.props.actions.reselectLeaveType } /> 
+      : <LeaveTypeList types={ this.props.leaveType } leaveInfo={ this.props.leaveInfo } selectedType = { this.props.actions.selectedLeaveType } /> 
         
-        return (
+    return (
       <form>
-      <RequestorInfo requestorInfo={ this.state.requestor } />
-      { leaveNode }
+        <RequestorInfo requestorInfo={ this.props.leaveInfo } />
+        { leaveNode }
       < /form>
-        )
+    )
   }
 }
+
+function mapStateToProps(state) {
+  return state
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
