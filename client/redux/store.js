@@ -10,6 +10,6 @@ let finalCreateStore = compose(
     : f => f
   )(createStore)
 
-export default function configureStore(initialState = { leaveType: {}, leaveInfo: {} }) {
+export default function configureStore(initialState = { leaveType: [], leaveInfo: {} }) {
   return finalCreateStore(rootReducer, initialState)
 }

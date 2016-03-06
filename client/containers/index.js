@@ -2,12 +2,18 @@ import React, { Component } from 'react'
 import render from 'react-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import actions from '../redux/actions'
+import * as actions from '../redux/actions'
 import RequestorInfo from '../components/RequestorInfo'
 import LeaveTypeList from '../components/LeaveTypeList'
 import LeaveInfo from '../components/LeaveInfo'
 
 class App extends Component {
+
+  componentDidMount() {
+    if (this.props.actions.getLeaveType) {
+      this.props.actions.getLeaveType();
+    }
+  }
 
   render() {
 

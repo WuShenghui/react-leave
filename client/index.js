@@ -6,7 +6,7 @@ import App from './containers'
 import configureStore from './redux/store'
 
 let initialState = {
-  leaveType: ["有薪年假", "病假", "補假", "無薪假", "分娩假", "婚假", "恩恤假", "其他"],
+  leaveType: [],
   leaveInfo: {
     id: '',
     company: '',
