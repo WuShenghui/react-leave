@@ -1,43 +1,17 @@
 import React, { Component } from 'react'
 import render from 'react-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as actions from '../redux/actions'
-import RequestorInfo from '../components/RequestorInfo'
-import LeaveTypeList from '../components/LeaveTypeList'
-import LeaveInfo from '../components/LeaveInfo'
+import { Provider } from 'react-redux'
+import configureStore from '../redux/store'
+import LeaveForm from './LeaveForm'
 
-class App extends Component {
+const store = configureStore()
 
-  componentDidMount() {
-    if (this.props.actions.getLeaveType) {
-      this.props.actions.getLeaveType();
-    }
-  }
-
+export default class App extends Component {
   render() {
-
-    let leaveNode = this.props.leaveInfo.type
-      ? <LeaveInfo leaveInfo={ this.props.leaveInfo } addLeaveInfo= { this.props.actions.addLeaveInfo } reselect= { this.props.actions.reselectLeaveType } /> 
-      : <LeaveTypeList types={ this.props.leaveType } leaveInfo={ this.props.leaveInfo } selectedType = { this.props.actions.selectedLeaveType } /> 
-        
     return (
-      <form>
-        <RequestorInfo requestorInfo={ this.props.leaveInfo } />
-        { leaveNode }
-      < /form>
+      <Provider store={ store }>
+        <LeaveForm />
+      </Provider>
     )
   }
 }
-
-function mapStateToProps(state) {
-  return state
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)

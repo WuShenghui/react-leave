@@ -8,7 +8,7 @@ let finalCreateStore = compose(
   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined'
     ? window.devToolsExtension()
     : f => f
-  )(createStore)
+)(createStore)
 
 export default function configureStore(initialState = { leaveType: [], leaveInfo: {} }) {
   return finalCreateStore(rootReducer, initialState)
