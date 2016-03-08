@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import render from 'react-dom'
-import { reduxForm } from 'redux-form'
-import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { reduxForm } from 'redux-form'
 import * as actions from '../redux/actions'
 import RequestorInfo from '../components/RequestorInfo'
 import LeaveTypeList from '../components/LeaveTypeList'
@@ -23,26 +23,7 @@ function mapDispatchToProps(dispatch) {
   mapDispatchToProps
 )
 
-@reduxForm({
-  form: 'Leave',
-  fields: [
-    'id',
-    'company',
-    'department',
-    'hiredate',
-    'name',
-    'position',
-    'type',
-    'beginDate',
-    'beginPeriod',
-    'endDate',
-    'endPeriod',
-    'total',
-    'cause'
-  ]
-})
-
-export default class LeaveForm extends Component {
+class LeaveForm extends Component {
 
   constructor(props) {
     super(props);
@@ -60,11 +41,20 @@ export default class LeaveForm extends Component {
 
   render() {
     let leaveNode = this.props.leaveInfo.type
-      ? <div>
-        <LeaveInfo leaveInfo={ this.props.leaveInfo } addLeaveInfo= { this.props.actions.addLeaveInfo } reselect= { this.props.actions.reselectLeaveType } />
-        <button className="detailSubmit">提交</button>
-      </div>
-      : <LeaveTypeList types={ this.props.leaveType } leaveInfo={ this.props.leaveInfo } selectedType = { this.props.actions.selectedLeaveType } />
+      ? (
+        <div>
+          <LeaveInfo
+            leaveInfo={ this.props.leaveInfo }
+            addLeaveInfo= { this.props.actions.addLeaveInfo }
+            reselect= { this.props.actions.reselectLeaveType } />
+          <button className="detailSubmit">提交</button>
+        </div>
+      ) : (
+        <LeaveTypeList
+          types={ this.props.leaveType }
+          leaveInfo={ this.props.leaveInfo }
+          selectedType = { this.props.actions.selectedLeaveType } />
+      )
 
     return (
       <form onSubmit={ this.handleSubmit }>
@@ -74,3 +64,24 @@ export default class LeaveForm extends Component {
     )
   }
 }
+
+LeaveForm = reduxForm({
+  form: 'leave',
+  fields: [
+    'id',
+    'company',
+    'department',
+    'hiredate',
+    'name',
+    'position',
+    'type',
+    'beginDate',
+    'beginPeriod',
+    'endDate',
+    'endPeriod',
+    'total',
+    'cause'
+  ]
+})(LeaveForm)
+
+export default LeaveForm
