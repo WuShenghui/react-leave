@@ -9,7 +9,8 @@ export default function leaveInfoReducer(leaveInfo = {}, action) {
     }
 
     case 'ADD_LEAVE_INFO': {
-      console.log(action.leaveInfo);
+      console.log('Add Leave info: ');
+      console.info(action.leaveInfo);
       return leaveInfo;
     }
 

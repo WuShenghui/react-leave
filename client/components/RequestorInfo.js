@@ -4,7 +4,6 @@ import { findDOMNode } from 'react-dom'
 export default class RequestorInfo extends Component {
   constructor(props) {
     super(props);
-    this.state = { "requestorInfo": this.props.requestorInfo };
   }
 
   componentDidMount() {
@@ -12,7 +11,7 @@ export default class RequestorInfo extends Component {
   }
 
   render() {
-    const { id, company, department, hiredate, name, position } = this.state
+    const { id, company, department, hiredate, name, position } = this.props
     return (
       <div>
 
@@ -44,6 +43,7 @@ export default class RequestorInfo extends Component {
         <div className="col-cus-6 cus-form-group" >
           <label className="col-cus-5" > 職員姓名 </label>
           <input type= "text" className= "col-cus-7" placeholder="職員姓名" { ...name } />
+          {name.touched && name.error && <div className="error">{name.error}</div>}
         </div>
 
         {/* 職  位 */}
